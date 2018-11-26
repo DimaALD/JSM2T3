@@ -5,7 +5,8 @@
   "main": "dirwatcher.js",
   "dependencies": {
     "chokidar": "*",
-    "events": "3.0.0"
+    "events": "3.0.0",
+    "jquery-csv": "^0.8.9"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

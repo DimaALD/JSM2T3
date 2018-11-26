@@ -1,16 +1,20 @@
 const chokidar = require('chokidar')
+const EventEmitter = require('events').EventEmitter
+const fs = require('fs')
 
-class DirWatcher {
-  watch (path, delay) {
-    let watcher = chokidar.watch(path, { ignored: 'node_modules' })
-    watcher.on('addDir', (event, path, stat) => {
-      console.log(event, path)
-      if (event === 'change') {
 
-      }
-    })
-    return watcher
+class DirWatcher extends EventEmitter{
+  constructor(){
+  super()
+  }
+  watch(path, delay){
+    if(fs.statSync(path)){
+      let watcher = chokidar.watch(path + '/*.csv',{binaryInterval:delay, usePolling : true})
+      watcher.on('change',(filename)=>{
+        this.emit('dirwatcher:changed', filename)
+      })
+    }
   }
 }
-let x = new DirWatcher()
-x.watch().addListener()
+
+module.exports = DirWatcher
