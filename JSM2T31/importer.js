@@ -26,14 +26,15 @@ printInJSON(){
     this.obj = this.convertToJson(filename)
     const file = filename.replace('.csv','.json')
     fs.writeFileSync(file, JSON.stringify(this.obj, null, " "))
+    console.log('JSON file ' + file + ' was created')
   })
 }
 convertToJson(filename){
   let text = fs.readFileSync(filename, 'utf8')
   return csv.toObjects(text, {headerIndex : 1})
 }
+stopWatch(){
+  this.watch.stopWatch()
 }
-let a = new Importer('data', 3000)
-a.printInJSON()
-//this.printJSON(filename.replace('.csv','.json'), JSON.stringify(json, null , " "))
-
+}
+module.exports = Importer
